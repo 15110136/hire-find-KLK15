@@ -1,0 +1,10 @@
+.Main{
+    border: 3px solid blue;
+    padding: 20px;
+    margin: 100px 200px;
+    border-radius: 10px;
+    text-align: center;
+}
+.heading-main{
+    color: purple;
+}

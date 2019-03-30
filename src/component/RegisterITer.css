@@ -1,0 +1,15 @@
+.Form{
+    border: 3px solid #83df16;
+    border-radius: 10px;
+    margin-top: 50px;
+    margin-left: 657px;
+    margin-right: 50px;
+    margin-bottom: 50px;
+    padding: 20px;
+    background-color: #ffffff;
+}
+.background{
+    background-image: url('../img/connect-people.jpg');
+    background-attachment: fixed;
+    background-size: 48%;
+}
