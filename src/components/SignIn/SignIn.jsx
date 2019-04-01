@@ -1,8 +1,47 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Form from 'react-validation/build/form';
+import Input from 'react-validation/build/input';
 import { connect } from 'react-redux';
-
 import { signIn } from "../../actions/authenAction";
+import "../../assets/css/login.css"
+import "../../assets/css/util.css"
+import img from "../../assets/img/img.png"
+import Tilt from 'react-tilt'
+import validator from 'validator' 
+
+const required = (value) => {
+  if (!value.toString().trim().length) {
+    // We can return string or jsx as the 'error' prop for the validated Component
+    return 'require';
+  }
+};
+ 
+const email = (value) => {
+  if (!validator.isEmail(value)) {
+    return `$${value} is not a valid email.`
+  }
+};
+ 
+const lt = (value, props) => {
+  // get the maxLength from component's props
+  if (!value.toString().trim().length > props.maxLength) {
+    // Return jsx
+    return <span className="error">The value exceeded {props.maxLength} symbols.</span>
+  }
+};
+ 
+const passWord = (value, props, components) => {
+  // NOTE: Tricky place. The 'value' argument is always current component's value.
+  // So in case we're 'changing' let's say 'password' component - we'll compare it's value with 'confirm' value.
+  // But if we're changing 'confirm' component - the condition will always be true
+  // If we need to always compare own values - replace 'value' with components.password[0].value and make some magic with error rendering.
+  if (value !== components['confirm'][0].value) { // components['password'][0].value !== components['confirm'][0].value
+    // 'confirm' - name of input
+    // components['confirm'] - array of same-name components because of checkboxes and radios
+    return <><span className="error">Passwords are not equal.</span></>
+  }
+};
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -35,27 +74,48 @@ class LoginPage extends React.Component {
     }
     this.props.signIn(credentials);
   }
-
+  
   render() {
     const { authError, auth } = this.props;
 
-    return (
-      <div className="container">
-        <form className="white" onSubmit={this.handleSubmit}>
-          <h5 className="grey-text text-darken-3">Sign In</h5>
-          <div className="input-field">
-            <label htmlFor="email">Email</label>
-            <input type="email" id='email' onChange={this.handleChange} />
-          </div>
-          <div className="input-field">
-            <label htmlFor="password">Password</label>
-            <input type="password" id='password' onChange={this.handleChange} />
-          </div>
-          <div className="input-field center">
-            <button className="btn blue lighten-1 z-depth-0">Login</button>
-          </div>
-        </form>
-      </div>
+    return (     
+        <div className="limiter">
+          <div className="container-login100">
+            <div className="wrap-login100">
+                <Tilt className="login100-pic Tilt" data-tilt>
+                  <img src={img} alt="IMG"/>
+                </Tilt>
+                <Form className="login100-form validate-form">
+                  <span className="login100-form-title">
+                     Admin Login
+                  </span>
+                  <div className="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                    <Input className="input100" type="text" name="email" validations={[required, email,lt]} onChange={this.handleChange} placeholder="Email@gmail.com" />
+                    <span className="focus-input100"></span>
+                    <span className="symbol-input100">
+                      <i className="fa fa-envelope" aria-hidden="true"></i>
+                    </span>
+                  </div>
+
+                  <div className="wrap-input100 validate-input" data-validate="Password is required">
+                    <Input className="input100" type="password" validations={[required,lt]} onChange={this.handleChange} name="password" placeholder="Password" />
+                    <span className="focus-input100"></span>
+                    <span className="symbol-input100">
+                      <i className="fa fa-lock" aria-hidden="true"></i>
+                    </span>
+                  </div>
+                  <div className="error">
+                    {authError ? <p>{authError}</p> : null}
+                  </div>
+                  <div className="container-login100-form-btn">
+                    <button className="login100-form-btn" onClick={this.handleSubmit}>
+                      Login
+                    </button>
+                  </div>
+                </Form>   
+              </div>
+            </div>
+          </div>          
     )
   }
 }

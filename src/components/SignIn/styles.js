@@ -4,4 +4,4 @@ const styles = {
     justifyContent: 'center'
   }
 }
-    
+

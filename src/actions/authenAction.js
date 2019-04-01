@@ -5,6 +5,7 @@ import jwt_decode from 'jwt-decode';
 
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
 export const SET_CURRENT_USER = 'SET_CURRENT_USER'
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 
 const API_ROOT = 'https://hire-find.herokuapp.com/api';
 
@@ -25,7 +26,7 @@ export const signIn = credentials => dispatch => {
       localStorage.setItem('token', token);
       setHeaderAuth(token);
       const decoded = jwt_decode(token);
-      dispatch(setCurrentUser(decoded));
+      dispatch(setCurrentUser(decoded));   
     })
     .catch(err => {
       dispatch({
@@ -33,6 +34,5 @@ export const signIn = credentials => dispatch => {
         payload: err.response
       });
     });
-  console.log(1);
-  
+  console.log(1);  
 }

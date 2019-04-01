@@ -15,6 +15,8 @@ import SignIn from "./components/SignIn/SignIn";
 import "assets/scss/black-dashboard-react.scss";
 import "assets/demo/demo.css";
 import "assets/css/nucleo-icons.css";
+import "tilt.js";
+import "./components/SignIn/styles.js"
 
 const hist = createBrowserHistory();
 
@@ -28,7 +30,7 @@ ReactDOM.render(
       <Switch>
         <Route path="/signin" component = {SignIn} />
         <Route path="/admin" render={props => <AdminLayout {...props} />} />
-        <Redirect from="/" to="/admin/dashboard" />
+        <Redirect from="/" to="/signin" />
       </Switch>
     </Router>
   </Provider>
