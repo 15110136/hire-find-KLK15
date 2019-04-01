@@ -11,6 +11,7 @@ class RegisterITer extends Component {
       password: "",
       phoneNumber: "",
       typeJob: "",
+      address:"",
       exp: 0
     };
   }
@@ -23,6 +24,7 @@ class RegisterITer extends Component {
     alert("You submitted!!: " + this.state.selectZone + ", "
       + this.state.yourName + ", "
       + this.state.email + ", "
+      + this.state.address + ", "
       + this.state.phoneNumber + ", "
       + this.state.typeJob + this.state.exp);
   }
@@ -61,6 +63,14 @@ class RegisterITer extends Component {
               onChange={this.handleChange} />
           </FormGroup>
           <FormGroup>
+            <Label>Địa Chỉ</Label>
+            <Input type="string"
+              name="address"
+              id="address"
+              value={this.state.address}
+              onChange={this.handleChange} />
+          </FormGroup>
+          <FormGroup>
             <Label>Mật Khẩu</Label>
             <Input type="password"
               name="password"
@@ -70,7 +80,7 @@ class RegisterITer extends Component {
           </FormGroup>
           <FormGroup>
             <Label>Số Điện Thoại</Label>
-            <Input type="number"
+            <Input type="string"
               name="phoneNumber"
               id="phone"
               value={this.state.phoneNumber}
