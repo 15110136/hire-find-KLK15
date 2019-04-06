@@ -1,33 +1,116 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { withRouter } from "react-router-dom";
+import axios from 'axios';
 import './RegisterITer.css';
+
 class RegisterITer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectZone: "",
-      yourName: "",
+      activeZone: "",
+      name: "",
       email: "",
       password: "",
-      phoneNumber: "",
+      phone: 0,
+      hardware: 0,
+      software: 0,
       typeJob: "",
-      address:"",
-      exp: 0
+      address: "",
+      service: ["printer", "internet"],
+      iter: {}
     };
   }
+
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
     });
   }
-  handleSubmit = event => {
-    alert("You submitted!!: " + this.state.selectZone + ", "
-      + this.state.yourName + ", "
-      + this.state.email + ", "
-      + this.state.address + ", "
-      + this.state.phoneNumber + ", "
-      + this.state.typeJob + this.state.exp);
+
+  handleSubmit = async (event) => {
+    event.preventDefault();
+    let { name, email, password, activeZone, phone, address, hardware, software, service } = this.state;
+    let credentials = {
+      name: name,
+      email: email,
+      password: password,
+      activeZone: activeZone,
+      phone: phone,
+      address: address,
+      hardware: hardware,
+      software: software,
+      service: service
+    }
+
+    await axios.post('https://hire-find.herokuapp.com/api/iter/register', credentials)
+    .then(({ data }) => {
+      this.setState({
+        iter: data.iter
+      })
+      this.props.history.push('/')
+    })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
+
+  _renderInput() {
+    switch (this.state.typeJob) {
+      case "1":
+        return (
+          <div>
+            <Label>Năm kinh nghiệm phần cứng</Label>
+            <Input
+              type="number"
+              name="hardware"
+              id="hardware"
+              value={this.state.hardware}
+              onChange={this.handleChange} >
+            </Input>
+          </div>
+        );
+
+      case "2":
+        return (
+          <div>
+            <Label>Năm kinh nghiệm phần mềm</Label>
+            <Input
+              type="number"
+              name="software"
+              id="software"
+              value={this.state.software}
+              onChange={this.handleChange} >
+            </Input>
+          </div>
+        );
+
+      case "3":
+        return (
+          <div>
+            <Label>Năm kinh nghiệm phần cứng</Label>
+            <Input
+              type="number"
+              name="hardware"
+              id="hardware"
+              value={this.state.hardware}
+              onChange={this.handleChange} >
+            </Input>
+            <Label>Năm kinh nghiệm phần mềm</Label>
+            <Input
+              type="number"
+              name="software"
+              id="software"
+              value={this.state.software}
+              onChange={this.handleChange} >
+            </Input>
+          </div>
+        );
+      default:
+        break;
+    }
+  }
+
   render() {
     return (
       <div className="background" >
@@ -35,9 +118,9 @@ class RegisterITer extends Component {
           <FormGroup>
             <Label>Khu Vực Đăng Kí</Label>
             <Input type="select"
-              name="selectZone"
+              name="activeZone"
               id="select"
-              value={this.state.selectZone}
+              value={this.state.activeZone}
               onChange={this.handleChange}>
               <option>Tp. Hồ Chí Minh</option>
               <option>Hà Nội</option>
@@ -49,9 +132,9 @@ class RegisterITer extends Component {
           <FormGroup>
             <Label>Họ Tên</Label>
             <Input type="name"
-              name="yourName"
+              name="name"
               id="name"
-              value={this.state.yourName}
+              value={this.state.name}
               onChange={this.handleChange} />
           </FormGroup>
           <FormGroup>
@@ -80,35 +163,38 @@ class RegisterITer extends Component {
           </FormGroup>
           <FormGroup>
             <Label>Số Điện Thoại</Label>
-            <Input type="string"
-              name="phoneNumber"
+            <Input type="number"
+              name="phone"
               id="phone"
-              value={this.state.phoneNumber}
+              value={this.state.phone}
               onChange={this.handleChange} />
           </FormGroup>
+
           <FormGroup>
             <Label>Loại Công Việc Đăng Kí</Label>
             <Input type="select"
               name="typeJob"
-              id="select"
+              id="typeJob"
               value={this.state.typeJob}
               onChange={this.handleChange}>
-              <option>IT phần cứng</option>
-              <option>IT phần mềm</option>
-              <option>Full Stack</option>
+              <option>Chọn loại công việc</option>
+              <option value='1' >IT phần cứng</option>
+              <option value='2' >IT phần mềm</option>
+              <option value='3' >Full Stack</option>
             </Input>
+            {this._renderInput()}
           </FormGroup>
 
           <FormGroup check>
-          <Label check>
-            <Input type="checkbox" />{' '}
-            Check me out
+            <Label check>
+              <Input type="checkbox" />{' '}
+              Check me out
           </Label>
-        </FormGroup>
-          <Input style={{ backgroundColor: 'blue', color: 'white' }} type="submit" value="Submit"></Input>
+          </FormGroup>
+          <Input style={{ backgroundColor: 'blue', color: 'white' }} type="submit" value="Submit" ></Input>
         </Form>
       </div>
     );
   }
 }
-export default RegisterITer;
+export default withRouter(RegisterITer);
