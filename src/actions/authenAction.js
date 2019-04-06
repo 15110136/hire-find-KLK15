@@ -17,22 +17,43 @@ export const setCurrentUser = decoded => {
 }
 
 export const signIn = credentials => dispatch => {
-  axios.post(`${API_ROOT}/admin/login`, credentials)
-    .then(res => {
-      const {
-        token
-      } = res.result;
-      console.log(token);
-      localStorage.setItem('token', token);
-      setHeaderAuth(token);
-      const decoded = jwt_decode(token);
-      dispatch(setCurrentUser(decoded));   
-    })
-    .catch(err => {
+  console.log(credentials);
+  axios({
+    method: 'post',
+    url: `${API_ROOT}/admin/login`,
+    data: {
+      email: `${credentials.user.email}`,
+      password: `${credentials.user.password}`
+    }
+  }).then(res => {
+    console.log(res);
+    // const {
+    //   token
+    // } = res.result.token;
+    //console.log(token);
+    if(res.data.result.success){
       dispatch({
-        type: LOGIN_FAILURE,
-        payload: err.response
-      });
+      type : LOGIN_SUCCESS
+    }) 
+    } else return;
+    // localStorage.setItem('token', token);    
+    // setHeaderAuth(token);
+    // const decoded = jwt_decode(token);
+    // dispatch(setCurrentUser(decoded));
+  }).catch(err => {
+    dispatch({
+      type: LOGIN_FAILURE,
+      payload: err.response
     });
-  console.log(1);  
+  })
+}
+
+export const currentUser=(token)=>dispatch=>{
+  setHeaderAuth(token);
+  const auth='Token '.concat(token);
+  axios.get(`${API_ROOT}/admin/user`,{headers:{Authorization: auth}})
+    .then(res=>{
+      dispatch(setCurrentUser(res.data.user));
+    })
+  
 }

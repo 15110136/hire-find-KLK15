@@ -38,10 +38,10 @@ var routes = [
     layout: "/admin"
   },
 
-  {
-    path: "/signin",
-    name: "Sign In",
-    component: SignIn
-  }
+  // {
+  //   path: "/signin",
+  //   name: "Sign In",
+  //   component: SignIn
+  // }
 ];
 export default routes;

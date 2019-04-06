@@ -26,12 +26,12 @@ class CircularDeterminate extends React.Component {
     render() {
         const { classes } = this.props;
         return (
-            <div style={styles.wait}>
+            <div style={styles.wait} > 
                 <CircularProgress 
                     className={classes.progress}
                     variant="determinate"
                     value={this.state.completed}
-                    color="secondary"
+                    color="secondary"                                    
                 />
             </div>
         );

@@ -17,10 +17,10 @@ const authReducer = (state = initState, action) => {
 		case 'SET_CURRENT_USER':
 			return {
 				...state,
-				isAuthenticated: !isEmpty(action.payload),
+			//	isAuthenticated: !isEmpty(action.payload),
 				user: action.payload
 			}
-		case 'LOGIN_FAILURE':
+		case 'LOGIN_FAILUREE':
 			return {
 				...state,
 				authError: "Login Fail"
@@ -28,7 +28,8 @@ const authReducer = (state = initState, action) => {
 		case 'LOGIN_SUCCESS':
 			return {
 				...state,
-				authError: action.payload.errors
+				isAuthenticated: !state.isAuthenticated,
+			//	authError: action.payload.errors
 			}
 		case 'LOGOUT_SUCCESS':
 			console.log('log out success');
