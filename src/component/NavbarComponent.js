@@ -8,6 +8,7 @@ import {
   NavItem
 } from 'reactstrap';
 import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
+import './Navbar.css';
 class NavbarComponent extends React.Component {
   constructor(props) {
     super(props);

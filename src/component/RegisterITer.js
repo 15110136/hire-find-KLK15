@@ -11,8 +11,7 @@ class RegisterITer extends Component {
       activeZone: "",
       name: "",
       phone: 0,
-      hardware: 0,
-      software: 0,
+      exp: 0,
       typeJob: "",
       address: "",
       service: [],
@@ -26,24 +25,33 @@ class RegisterITer extends Component {
     });
   }
 
+  handleChangeCheckbox = event => {
+
+    let arr = this.state.service;
+    arr.push(event.target.value)
+    this.setState({
+      service: arr
+    })
+
+  }
+
   handleSubmit = async (event) => {
     event.preventDefault();
-    let { name, email, password, activeZone, phone, address, hardware, software, service } = this.state;
+    let { name, activeZone, phone, address, exp, service } = this.state;
     let credentials = {
       name: name,
       activeZone: activeZone,
       phone: phone,
       address: address,
-      hardware: hardware,
-      software: software,
+      exp: exp,
       service: service
     }
-
     await axios.post('https://hire-find.herokuapp.com/api/iter/register', credentials)
       .then(({ data }) => {
         this.setState({
           iter: data.iter
         })
+        console.log(data);
         this.props.history.push('/')
       })
       .catch(function (error) {
@@ -57,131 +65,49 @@ class RegisterITer extends Component {
         return (
           <div>
             <FormGroup>
-              <Label for="a" >Kỹ Năng Chính</Label>
-              <div>
-                <CustomInput
-                  type="radio"
-                  id="radio1"
-                  name="service"
-                  label="Sửa Máy Tính"
-                  value={this.state.service}
-                  onChange={this.handleChange} />
-                <CustomInput
-                  type="radio"
-                  id="radio2"
-                  name="service"
-                  label="Sửa Máy In"
-                  value={this.state.service}
-                  onChange={this.handleChange} />
-                <CustomInput
-                  type="radio"
-                  id="radio3"
-                  name="service"
-                  label="Khắc Phục Mạng Trong Nhà"
-                  value={this.state.service}
-                  onChange={this.handleChange} />
-                <CustomInput
-                  type="radio"
-                  id="radio4"
-                  name="service"
-                  label="Sửa Bo Mạch Điện Tử"
-                  value={this.state.service}
-                  onChange={this.handleChange} />
-                <CustomInput
-                  type="radio"
-                  id="radio5"
-                  name="service"
-                  label="Sửa Máy Fax"
-                  value={this.state.service}
-                  onChange={this.handleChange} />
-              </div>
+              <Label for="a" >Kỹ Năng</Label>
+              <CustomInput
+                type="checkbox"
+                id="checkboxHardware1"
+                name="service"
+                label="Sửa Máy Tính"
+                value="Sửa Máy Tính"
+                onChange={this.handleChangeCheckbox} />
+              <CustomInput
+                type="checkbox"
+                id="checkboxHardware2"
+                name="service"
+                label="Sửa Máy In"
+                value="Sửa Máy In"
+                onChange={this.handleChangeCheckbox} />
+              <CustomInput
+                type="checkbox"
+                id="checkboxHardware3"
+                name="service"
+                label="Khắc Phục Mạng Trong Nhà"
+                value="Khắc Phục Mạng Trong Nhà"
+                onChange={this.handleChangeCheckbox} />
+              <CustomInput
+                type="checkbox"
+                id="checkboxHardware4"
+                name="service"
+                label="Sửa Bo Mạch Điện Tử"
+                value="Sửa Bo Mạch Điện Tử"
+                onChange={this.handleChangeCheckbox} />
+              <CustomInput
+                type="checkbox"
+                id="checkboxHardware5"
+                name="service"
+                label="Sửa Máy Fax"
+                value="Sửa Máy Fax"
+                onChange={this.handleChangeCheckbox} />
             </FormGroup>
-            <FormGroup>
-              <Label for="b" >Kỹ Năng 1</Label>
-              <div>
-                <CustomInput
-                  type="radio"
-                  id="radio11"
-                  name="service"
-                  label="Sửa Máy Tính"
-                  value={this.state.service}
-                  onChange={this.handleChange} />
-                <CustomInput
-                  type="radio"
-                  id="radio22"
-                  name="service"
-                  label="Sửa Máy In"
-                  value={this.state.service}
-                  onChange={this.handleChange} />
-                <CustomInput
-                  type="radio"
-                  id="radio33"
-                  name="service"
-                  label="Khắc Phục Mạng Trong Nhà"
-                  value={this.state.service}
-                  onChange={this.handleChange} />
-                <CustomInput
-                  type="radio"
-                  id="radio44"
-                  name="service"
-                  label="Sửa Bo Mạch Điện Tử"
-                  value={this.state.service}
-                  onChange={this.handleChange} />
-                <CustomInput
-                  type="radio"
-                  id="radio55"
-                  name="service"
-                  label="Sửa Máy Fax"
-                  value={this.state.service}
-                  onChange={this.handleChange} />
-              </div>
-            </FormGroup>
-            <FormGroup>
-              <Label for="c" >Kỹ Năng 2</Label>
-              <div>
-                <CustomInput
-                  type="radio"
-                  id="radio111"
-                  name="service"
-                  label="Sửa Máy Tính"
-                  value={this.state.service}
-                  onChange={this.handleChange} />
-                <CustomInput
-                  type="radio"
-                  id="radio222"
-                  name="service"
-                  label="Sửa Máy In"
-                  value={this.state.service}
-                  onChange={this.handleChange} />
-                <CustomInput
-                  type="radio"
-                  id="radio333"
-                  name="service"
-                  label="Khắc Phục Mạng Trong Nhà"
-                  value={this.state.service}
-                  onChange={this.handleChange} />
-                <CustomInput
-                  type="radio"
-                  id="radio444"
-                  name="service"
-                  label="Sửa Bo Mạch Điện Tử"
-                  value={this.state.service}
-                  onChange={this.handleChange} />
-                <CustomInput
-                  type="radio"
-                  id="radio555"
-                  name="service"
-                  label="Sửa Máy Fax"
-                  value={this.state.service}
-                  onChange={this.handleChange} />
-              </div>
-            </FormGroup>
-            <Label>Năm kinh nghiệm phần cứng</Label>
+            <Label>Năm kinh nghiệm</Label>
             <Input
               type="number"
-              name="hardware"
-              id="hardware"
-              value={this.state.hardware}
+              name="exp"
+              id="exp"
+              value={this.state.exp}
               onChange={this.handleChange} >
             </Input>
           </div>
@@ -191,132 +117,51 @@ class RegisterITer extends Component {
         return (
           <div>
             <FormGroup>
-              <Label for="a" >Kỹ Năng Chính</Label>
+              <Label for="a" >Kỹ Năng</Label>
               <div>
                 <CustomInput
-                  type="radio"
-                  id="radioSoftware1"
+                  type="checkbox"
+                  id="checkboxSoftware1"
                   name="service"
                   label="Cài đặt phần mềm"
-                  value={this.state.service}
-                  onChange={this.handleChange} />
+                  value="Cài đặt phần mềm"
+                  onChange={this.handleChangeCheckbox} />
                 <CustomInput
-                  type="radio"
-                  id="radioSoftware2"
+                  type="checkbox"
+                  id="checkboxSoftware2"
                   name="service"
                   label="Diệt Virut"
-                  value={this.state.service}
-                  onChange={this.handleChange} />
+                  value="Diệt Virut"
+                  onChange={this.handleChangeCheckbox} />
                 <CustomInput
-                  type="radio"
-                  id="radioSoftware3"
+                  type="checkbox"
+                  id="checkboxSoftware3"
                   name="service"
                   label="Bảo trì máy tính"
-                  value={this.state.service}
-                  onChange={this.handleChange} />
+                  value="Bảo trì máy tính"
+                  onChange={this.handleChangeCheckbox} />
                 <CustomInput
-                  type="radio"
-                  id="radioSoftware4"
+                  type="checkbox"
+                  id="checkboxSoftware4"
                   name="service"
                   label="Viết Chương Trình theo yêu cầu"
-                  value={this.state.service}
-                  onChange={this.handleChange} />
+                  value="Viết Chương Trình theo yêu cầu"
+                  onChange={this.handleChangeCheckbox} />
                 <CustomInput
-                  type="radio"
-                  id="radioSoftware5"
+                  type="checkbox"
+                  id="checkboxSoftware5"
                   name="service"
                   label="Thiết Kế Quảng Cáo"
-                  value={this.state.service}
-                  onChange={this.handleChange} />
+                  value="Thiết Kế Quảng Cáo"
+                  onChange={this.handleChangeCheckbox} />
               </div>
             </FormGroup>
-            <FormGroup>
-              <Label for="b" >Kỹ Năng 1</Label>
-              <div>
-                <CustomInput
-                  type="radio"
-                  id="radioSoftware11"
-                  name="service"
-                  label="Cài đặt phần mềm"
-                  value={this.state.service}
-                  onChange={this.handleChange} />
-                <CustomInput
-                  type="radio"
-                  id="radioSoftware22"
-                  name="service"
-                  label="Diệt Virut"
-                  value={this.state.service}
-                  onChange={this.handleChange} />
-                <CustomInput
-                  type="radio"
-                  id="radioSoftware33"
-                  name="service"
-                  label="Bảo trì máy tính"
-                  value={this.state.service}
-                  onChange={this.handleChange} />
-                <CustomInput
-                  type="radio"
-                  id="radioSoftware44"
-                  name="service"
-                  label="Viết Chương Trình theo yêu cầu"
-                  value={this.state.service}
-                  onChange={this.handleChange} />
-                <CustomInput
-                  type="radio"
-                  id="radioSoftware55"
-                  name="service"
-                  label="Thiết Kế Quảng Cáo"
-                  value={this.state.service}
-                  onChange={this.handleChange} />
-              </div>
-            </FormGroup>
-            <FormGroup>
-              <Label for="c" >Kỹ Năng 2</Label>
-              <div>
-                <CustomInput
-                  type="radio"
-                  id="radioSoftware111"
-                  name="service"
-                  label="Cài đặt phần mềm"
-                  value={this.state.service}
-                  onChange={this.handleChange} />
-                <CustomInput
-                  type="radio"
-                  id="radioSoftware222"
-                  name="service"
-                  label="Diệt Virut"
-                  value={this.state.service}
-                  onChange={this.handleChange} />
-                <CustomInput
-                  type="radio"
-                  id="radioSoftware333"
-                  name="service"
-                  label="Bảo trì máy tính"
-                  value={this.state.service}
-                  onChange={this.handleChange} />
-                <CustomInput
-                  type="radio"
-                  id="radioSoftware444"
-                  name="service"
-                  label="Viết Chương Trình theo yêu cầu"
-                  value={this.state.service}
-                  onChange={this.handleChange} />
-                <CustomInput
-                  type="radio"
-                  id="radioSoftware555"
-                  name="service"
-                  label="Thiết Kế Quảng Cáo"
-                  value={this.state.service}
-                  onChange={this.handleChange} />
-              </div>
-            </FormGroup>
-          
-            <Label>Năm kinh nghiệm phần mềm</Label>
+            <Label>Năm kinh nghiệm</Label>
             <Input
               type="number"
-              name="software"
-              id="software"
-              value={this.state.software}
+              name="exp"
+              id="exp"
+              value={this.state.exp}
               onChange={this.handleChange} >
             </Input>
           </div>
@@ -325,20 +170,50 @@ class RegisterITer extends Component {
       case "3":
         return (
           <div>
-            <Label>Năm kinh nghiệm phần cứng</Label>
+            <FormGroup>
+              <Label for="a" >Kỹ Năng</Label>
+              <CustomInput
+                type="checkbox"
+                id="checkboxFullstack1"
+                name="service"
+                label="Máy Tính"
+                value="Máy Tính"
+                onChange={this.handleChangeCheckbox} />
+              <CustomInput
+                type="checkbox"
+                id="checkboxFullstack2"
+                name="service"
+                label="Máy In"
+                value="Máy In"
+                onChange={this.handleChangeCheckbox} />
+              <CustomInput
+                type="checkbox"
+                id="checkboxFullstack3"
+                name="service"
+                label="Mạng Internet"
+                value="Mạng Internet"
+                onChange={this.handleChangeCheckbox} />
+              <CustomInput
+                type="checkbox"
+                id="checkboxFullstack4"
+                name="service"
+                label="Mạch"
+                value="Mạch"
+                onChange={this.handleChangeCheckbox} />
+              <CustomInput
+                type="checkbox"
+                id="checkboxFullstack5"
+                name="service"
+                label="Máy Fax"
+                value="Máy Fax"
+                onChange={this.handleChangeCheckbox} />
+            </FormGroup>
+            <Label>Năm kinh nghiệm</Label>
             <Input
               type="number"
-              name="hardware"
-              id="hardware"
-              value={this.state.hardware}
-              onChange={this.handleChange} >
-            </Input>
-            <Label>Năm kinh nghiệm phần mềm</Label>
-            <Input
-              type="number"
-              name="software"
-              id="software"
-              value={this.state.software}
+              name="exp"
+              id="exp"
+              value={this.state.exp}
               onChange={this.handleChange} >
             </Input>
           </div>
@@ -390,7 +265,7 @@ class RegisterITer extends Component {
               value={this.state.phone}
               onChange={this.handleChange} />
           </FormGroup>
-          {/* <FormGroup>
+          <FormGroup>
             <Label>Loại Công Việc Đăng Kí</Label>
             <Input type="select"
               name="typeJob"
@@ -403,33 +278,8 @@ class RegisterITer extends Component {
               <option value='3' >Full Stack</option>
             </Input>
             {this._renderInput()}
-          </FormGroup> */}
-           <FormGroup>
-              <Label >Loại Kỹ Năng</Label>
-              <div>
-                <CustomInput
-                  type="radio"
-                  id="skill"
-                  name="hardware"
-                  label="Phần Cứng"
-                  value={this.state.hardware}
-                  onChange={this.handleChange} />
-                <CustomInput
-                  type="radio"
-                  id="skill2"
-                  name="software"
-                  label="Phần Mềm"
-                  value={this.state.software}
-                  onChange={this.handleChange} />
-                <CustomInput
-                  type="radio"
-                  id="skill3"
-                  name="hardware"
-                  label="Full Stack"
-                  value={this.state.hardware}
-                  onChange={this.handleChange} />
-              </div>
-            </FormGroup>
+          </FormGroup>
+
           <Input style={{ backgroundColor: 'blue', color: 'white' }} type="submit" value="Submit" ></Input>
         </Form>
       </div>

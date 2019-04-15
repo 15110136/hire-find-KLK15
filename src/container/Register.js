@@ -1,11 +1,12 @@
-import React, { Component } from 'react'
-import RegisterITer from '../component/RegisterITer'
-
+import React, { Component } from 'react';
+import RIter from '../component/Register';
+import '../component/Register.css';
 export default class Register extends Component {
   render() {
+    
     return (
-      <div>
-        <RegisterITer/>
+      <div className="registerFlex" >
+        <RIter props = { this.props } />
       </div>
     )
   }
