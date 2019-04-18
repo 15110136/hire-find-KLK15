@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
-import { Button, Form, FormGroup, Label, Input, CustomInput } from 'reactstrap';
+import React, { Component } from "react";
+import { Button, Form, FormGroup, Label, Input, CustomInput } from "reactstrap";
+import { connect } from 'react-redux'
+import { registerITer } from "../actions/registerAction";
 import { withRouter } from "react-router-dom";
-import axios from 'axios';
-import './RegisterITer.css';
+import axios from "axios";
+import "./RegisterITer.css";
 
 class RegisterITer extends Component {
   constructor(props) {
@@ -23,41 +25,44 @@ class RegisterITer extends Component {
     this.setState({
       [event.target.name]: event.target.value
     });
-  }
+  };
 
   handleChangeCheckbox = event => {
-
     let arr = this.state.service;
-    arr.push(event.target.value)
+    arr.push(event.target.value);
     this.setState({
       service: arr
-    })
+    });
+  };
 
-  }
-
-  handleSubmit = async (event) => {
+  handleSubmit = async event => {
     event.preventDefault();
     let { name, activeZone, phone, address, exp, service } = this.state;
-    let credentials = {
-      name: name,
+
+    let newCre = {...this.props.register.credentials, name: name,
       activeZone: activeZone,
       phone: phone,
       address: address,
       exp: exp,
-      service: service
-    }
-    await axios.post('https://hire-find.herokuapp.com/api/iter/register', credentials)
-      .then(({ data }) => {
-        this.setState({
-          iter: data.iter
-        })
-        console.log(data);
-        this.props.history.push('/')
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
+      service: service}
+
+    this.props.registerITer(newCre);
+    this.props.props.history.push('/profile')
+
+    // this.props.registerITer(newCre)
+    // await axios
+    //   .post("https://hire-find.herokuapp.com/api/iter/register", credentials)
+    //   .then(res => {
+    //     // this.setState({
+    //     //   iter: data.iter
+    //     // });
+    //     console.log(res);
+    //     this.props.history.push("/");
+    //   })
+    //   .catch(function(error) {
+    //     console.log(error);
+    //   });
+  };
 
   _renderInput() {
     switch (this.state.typeJob) {
@@ -65,42 +70,47 @@ class RegisterITer extends Component {
         return (
           <div>
             <FormGroup>
-              <Label for="a" >Kỹ Năng</Label>
+              <Label for="a">Kỹ Năng</Label>
               <CustomInput
                 type="checkbox"
                 id="checkboxHardware1"
                 name="service"
                 label="Sửa Máy Tính"
                 value="Sửa Máy Tính"
-                onChange={this.handleChangeCheckbox} />
+                onChange={this.handleChangeCheckbox}
+              />
               <CustomInput
                 type="checkbox"
                 id="checkboxHardware2"
                 name="service"
                 label="Sửa Máy In"
                 value="Sửa Máy In"
-                onChange={this.handleChangeCheckbox} />
+                onChange={this.handleChangeCheckbox}
+              />
               <CustomInput
                 type="checkbox"
                 id="checkboxHardware3"
                 name="service"
                 label="Khắc Phục Mạng Trong Nhà"
                 value="Khắc Phục Mạng Trong Nhà"
-                onChange={this.handleChangeCheckbox} />
+                onChange={this.handleChangeCheckbox}
+              />
               <CustomInput
                 type="checkbox"
                 id="checkboxHardware4"
                 name="service"
                 label="Sửa Bo Mạch Điện Tử"
                 value="Sửa Bo Mạch Điện Tử"
-                onChange={this.handleChangeCheckbox} />
+                onChange={this.handleChangeCheckbox}
+              />
               <CustomInput
                 type="checkbox"
                 id="checkboxHardware5"
                 name="service"
                 label="Sửa Máy Fax"
                 value="Sửa Máy Fax"
-                onChange={this.handleChangeCheckbox} />
+                onChange={this.handleChangeCheckbox}
+              />
             </FormGroup>
             <Label>Năm kinh nghiệm</Label>
             <Input
@@ -108,8 +118,8 @@ class RegisterITer extends Component {
               name="exp"
               id="exp"
               value={this.state.exp}
-              onChange={this.handleChange} >
-            </Input>
+              onChange={this.handleChange}
+            />
           </div>
         );
 
@@ -117,7 +127,7 @@ class RegisterITer extends Component {
         return (
           <div>
             <FormGroup>
-              <Label for="a" >Kỹ Năng</Label>
+              <Label for="a">Kỹ Năng</Label>
               <div>
                 <CustomInput
                   type="checkbox"
@@ -125,35 +135,40 @@ class RegisterITer extends Component {
                   name="service"
                   label="Cài đặt phần mềm"
                   value="Cài đặt phần mềm"
-                  onChange={this.handleChangeCheckbox} />
+                  onChange={this.handleChangeCheckbox}
+                />
                 <CustomInput
                   type="checkbox"
                   id="checkboxSoftware2"
                   name="service"
                   label="Diệt Virut"
                   value="Diệt Virut"
-                  onChange={this.handleChangeCheckbox} />
+                  onChange={this.handleChangeCheckbox}
+                />
                 <CustomInput
                   type="checkbox"
                   id="checkboxSoftware3"
                   name="service"
                   label="Bảo trì máy tính"
                   value="Bảo trì máy tính"
-                  onChange={this.handleChangeCheckbox} />
+                  onChange={this.handleChangeCheckbox}
+                />
                 <CustomInput
                   type="checkbox"
                   id="checkboxSoftware4"
                   name="service"
                   label="Viết Chương Trình theo yêu cầu"
                   value="Viết Chương Trình theo yêu cầu"
-                  onChange={this.handleChangeCheckbox} />
+                  onChange={this.handleChangeCheckbox}
+                />
                 <CustomInput
                   type="checkbox"
                   id="checkboxSoftware5"
                   name="service"
                   label="Thiết Kế Quảng Cáo"
                   value="Thiết Kế Quảng Cáo"
-                  onChange={this.handleChangeCheckbox} />
+                  onChange={this.handleChangeCheckbox}
+                />
               </div>
             </FormGroup>
             <Label>Năm kinh nghiệm</Label>
@@ -162,8 +177,8 @@ class RegisterITer extends Component {
               name="exp"
               id="exp"
               value={this.state.exp}
-              onChange={this.handleChange} >
-            </Input>
+              onChange={this.handleChange}
+            />
           </div>
         );
 
@@ -171,42 +186,47 @@ class RegisterITer extends Component {
         return (
           <div>
             <FormGroup>
-              <Label for="a" >Kỹ Năng</Label>
+              <Label for="a">Kỹ Năng</Label>
               <CustomInput
                 type="checkbox"
                 id="checkboxFullstack1"
                 name="service"
                 label="Máy Tính"
                 value="Máy Tính"
-                onChange={this.handleChangeCheckbox} />
+                onChange={this.handleChangeCheckbox}
+              />
               <CustomInput
                 type="checkbox"
                 id="checkboxFullstack2"
                 name="service"
                 label="Máy In"
                 value="Máy In"
-                onChange={this.handleChangeCheckbox} />
+                onChange={this.handleChangeCheckbox}
+              />
               <CustomInput
                 type="checkbox"
                 id="checkboxFullstack3"
                 name="service"
                 label="Mạng Internet"
                 value="Mạng Internet"
-                onChange={this.handleChangeCheckbox} />
+                onChange={this.handleChangeCheckbox}
+              />
               <CustomInput
                 type="checkbox"
                 id="checkboxFullstack4"
                 name="service"
                 label="Mạch"
                 value="Mạch"
-                onChange={this.handleChangeCheckbox} />
+                onChange={this.handleChangeCheckbox}
+              />
               <CustomInput
                 type="checkbox"
                 id="checkboxFullstack5"
                 name="service"
                 label="Máy Fax"
                 value="Máy Fax"
-                onChange={this.handleChangeCheckbox} />
+                onChange={this.handleChangeCheckbox}
+              />
             </FormGroup>
             <Label>Năm kinh nghiệm</Label>
             <Input
@@ -214,8 +234,8 @@ class RegisterITer extends Component {
               name="exp"
               id="exp"
               value={this.state.exp}
-              onChange={this.handleChange} >
-            </Input>
+              onChange={this.handleChange}
+            />
           </div>
         );
       default:
@@ -224,16 +244,21 @@ class RegisterITer extends Component {
   }
 
   render() {
+  // const { register: { credentials } } = this.props;
     return (
-      <div className="background" >
-        <Form className="Form" onSubmit={this.handleSubmit} >
+      <div className="background">
+        <Form className="Form" onSubmit={this.handleSubmit}>
           <FormGroup>
             <Label>Khu Vực Đăng Kí</Label>
-            <Input type="select"
+            {/* <Label>{credentials.typeJob}</Label> */}
+            <Input
+              type="select"
               name="activeZone"
               id="select"
               value={this.state.activeZone}
-              onChange={this.handleChange}>
+              onChange={this.handleChange}
+            >
+              <option>Chọn khu vực làm việc</option>
               <option>Tp. Hồ Chí Minh</option>
               <option>Hà Nội</option>
               <option>Đà Nẵng</option>
@@ -243,47 +268,72 @@ class RegisterITer extends Component {
           </FormGroup>
           <FormGroup>
             <Label>Họ Tên</Label>
-            <Input type="name"
+            <Input
+              type="name"
               name="name"
               id="name"
               value={this.state.name}
-              onChange={this.handleChange} />
+              onChange={this.handleChange}
+            />
           </FormGroup>
           <FormGroup>
             <Label>Địa Chỉ</Label>
-            <Input type="string"
+            <Input
+              type="string"
               name="address"
               id="address"
               value={this.state.address}
-              onChange={this.handleChange} />
+              onChange={this.handleChange}
+            />
           </FormGroup>
           <FormGroup>
             <Label>Số Điện Thoại</Label>
-            <Input type="number"
+            <Input
+              type="number"
               name="phone"
               id="phone"
               value={this.state.phone}
-              onChange={this.handleChange} />
+              onChange={this.handleChange}
+            />
           </FormGroup>
           <FormGroup>
             <Label>Loại Công Việc Đăng Kí</Label>
-            <Input type="select"
+            <Input
+              type="select"
               name="typeJob"
               id="typeJob"
               value={this.state.typeJob}
-              onChange={this.handleChange}>
+              onChange={this.handleChange}
+            >
               <option>Chọn loại công việc</option>
-              <option value='1' >IT phần cứng</option>
-              <option value='2' >IT phần mềm</option>
-              <option value='3' >Full Stack</option>
+              <option value="1">IT phần cứng</option>
+              <option value="2">IT phần mềm</option>
+              <option value="3">Full Stack</option>
             </Input>
             {this._renderInput()}
           </FormGroup>
 
-          <Input style={{ backgroundColor: 'blue', color: 'white' }} type="submit" value="Submit" ></Input>
+          <Input
+            style={{ backgroundColor: "blue", color: "white" }}
+            type="submit"
+            value="Submit"
+          />
         </Form>
       </div>
     );
   }
 }
-export default withRouter(RegisterITer);
+
+const mapStateToProps = state => {
+  return {
+    register: state.register
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    registerITer: (credentials) => dispatch(registerITer(credentials))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterITer);

@@ -1,0 +1,25 @@
+.formProfile{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    border: 3px solid black;
+    margin: 50px 200px;
+    padding: 15px;  
+}
+.input{
+  color: blue;
+  font-size: 120%;
+  font-weight: bold;
+}
+.output{
+  color: red;
+  font-size: 100%;
+  font-style: italic;
+}
+.btn{
+
+}
+.btnSubmit{
+
+}
