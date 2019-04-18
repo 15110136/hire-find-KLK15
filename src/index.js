@@ -29,7 +29,7 @@ ReactDOM.render(
     <Router history={hist}>
       <Switch>
         <Route path="/signin" component = {SignIn} />
-        <Route path="/admin" render={props => <AdminLayout {...props} />} />
+        <Route path="/admin" render={props => <AdminLayout {...props} />}  />
         <Redirect from="/" to="/signin" />
       </Switch>
     </Router>

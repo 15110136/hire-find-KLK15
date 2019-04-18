@@ -2,7 +2,7 @@ import Dashboard from "views/Dashboard.jsx";
 import Map from "views/Map.jsx";
 import TableList from "views/TableList.jsx";
 import UserProfile from "views/UserProfile.jsx";
-import SignIn from "./components/SignIn/SignIn";
+
 
 
 var routes = [

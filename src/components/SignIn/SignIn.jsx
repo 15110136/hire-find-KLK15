@@ -71,10 +71,9 @@ class LoginPage extends React.Component {
       isLoading : true
     })
     var credentials = {
-      user: {
-        email: this.state.email,
-        password: this.state.password
-      }
+      email: this.state.email,
+      password: this.state.password,
+      role: 'admin'
     }
     this.props.signIn(credentials);    
   }
@@ -82,6 +81,7 @@ class LoginPage extends React.Component {
   render() {
     const { authError, auth } = this.props;
     if (auth.isAuthenticated) return <Redirect to='/admin/dashboard' />   
+    
     return (     
         <div className="limiter">
           <div className="container-login100">
@@ -105,7 +105,7 @@ class LoginPage extends React.Component {
                   </div>
 
                   <div className="wrap-input100 validate-input" data-validate="Password is required">
-                    <Input name="password" className="input100" type="password" validations={[required,lt]} onChange={this.handleChange} placeholder="Password" />
+                    <Input name="password" className="input100" type="password" validations={[required,lt]} onChange={this.handleChange} placeholder="Password"/>
                     <span className="focus-input100"></span>
                     <span className="symbol-input100">
                       <i className="fa fa-lock" aria-hidden="true"></i>
@@ -116,7 +116,7 @@ class LoginPage extends React.Component {
                   </div>
                   <div className="container-login100-form-btn">
                     <button className="login100-form-btn" onClick={this.handleSubmit}>
-                      {this.state.isLoading == false ? 'Login' : <CircularProgress/>}
+                      {this.state.isLoading === false ? 'Login' : <CircularProgress/>}
                     </button>
                   </div>
                 </Form>   

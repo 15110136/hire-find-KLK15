@@ -1333,11 +1333,11 @@ pre {
   .form-control:focus {
     color: rgba(255, 255, 255, 0.8);
     background-color: #ffffff;
-    border-color: rgba(50, 151, 211, 0.25);
-    outline: 0;
+    border-color: #12141a;
+    outline: 3px;
     box-shadow: none, none; }
   .form-control::placeholder {
-    color: #adb5bd;
+    color: #4a525a;
     opacity: 1; }
   .form-control:disabled, .form-control[readonly] {
     background-color: #e9ecef;
@@ -8684,7 +8684,7 @@ fieldset[disabled]
   -ms-transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
   transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, background-color 0.3s ease-in-out; }
   .form-control:focus {
-    border-color: #e14eca;
+    border-color: #181617;
     background-color: transparent;
     box-shadow: none; }
     .form-control:focus + .input-group-append .input-group-text,

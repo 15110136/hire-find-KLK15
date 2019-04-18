@@ -1,7 +1,9 @@
 import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
-import {Link} from "react-router-dom"
+//import { Link } from "react-router-dom"
+import { signOut } from '../../actions/authenAction'
+import { connect } from 'react-redux'
 // reactstrap components
 import {
   Button,
@@ -26,7 +28,7 @@ class AdminNavbar extends React.Component {
     this.state = {
       collapseOpen: false,
       modalSearch: false,
-      color: "navbar-transparent" 
+      color: "navbar-transparent"
     };
   }
   componentDidMount() {
@@ -124,7 +126,7 @@ class AdminNavbar extends React.Component {
                     <span className="d-lg-none d-md-block">Search</span>
                   </Button>
                 </InputGroup>
-                <UncontrolledDropdown nav>
+                {/* <UncontrolledDropdown nav>
                   <DropdownToggle
                     caret
                     color="default"
@@ -162,7 +164,7 @@ class AdminNavbar extends React.Component {
                       </DropdownItem>
                     </NavLink>
                   </DropdownMenu>
-                </UncontrolledDropdown>
+                </UncontrolledDropdown> */}
                 <UncontrolledDropdown nav>
                   <DropdownToggle
                     caret
@@ -178,15 +180,15 @@ class AdminNavbar extends React.Component {
                     <p className="d-lg-none">Log out</p>
                   </DropdownToggle>
                   <DropdownMenu className="dropdown-navbar" right tag="ul">
-                    <NavLink tag="li">
-                      <DropdownItem className="nav-item" href="/user-profile">Profile</DropdownItem>
+                    <NavLink tag="li" to="/admin/user-profile">
+                      <DropdownItem className="nav-item">Profile</DropdownItem>
                     </NavLink>
                     <NavLink tag="li">
                       <DropdownItem className="nav-item">Settings</DropdownItem>
                     </NavLink>
                     <DropdownItem divider tag="li" />
                     <NavLink tag="li">
-                      <DropdownItem className="nav-item">Log out</DropdownItem>
+                      <DropdownItem className="nav-item" onClick={this.props.signOut}>Log out</DropdownItem>
                     </NavLink>
                   </DropdownMenu>
                 </UncontrolledDropdown>
@@ -218,4 +220,16 @@ class AdminNavbar extends React.Component {
   }
 }
 
-export default AdminNavbar;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signOut: () => dispatch(signOut())
+  }
+}
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(AdminNavbar);

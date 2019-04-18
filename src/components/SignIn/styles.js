@@ -1,7 +1,7 @@
-const styles = {
-    wait:{
-    display: 'flex',
-    justifyContent: 'center'
-  }  
-}
+// const styles = {
+//     wait:{
+//     display: 'flex',
+//     justifyContent: 'center'
+//   }  
+// }
 

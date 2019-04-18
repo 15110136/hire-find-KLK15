@@ -167,9 +167,9 @@
 
   }
 
-  .modal-content {
-    @include box-shadow($modal-content-box-shadow-sm-up);
-  }
+  // .modal-content {
+  //   @include box-shadow($modal-content-box-shadow-sm-up);
+  // }
 
   .modal-sm { max-width: $modal-sm; }
 

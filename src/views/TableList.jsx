@@ -1,5 +1,7 @@
 import React from "react";
 import EditProfile from "./EditProfile"
+import axios from 'axios'
+//import { Link } from 'react-router-dom'
 // reactstrap components
 import {
   Card,
@@ -8,28 +10,43 @@ import {
   CardTitle,
   Table,
   Row,
-  Col,
-  UncontrolledTooltip,
-  Button 
+  Col
 } from "reactstrap";
+// import { join } from "path";
+
 
 class Tables extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: false
+      modal: false,
+      iters: [],
+      clients: []
     };
 
-    this.toggle = this.toggle.bind(this);
   }
 
-  toggle() {
-    this.setState(prevState => ({
-      modal: !prevState.modal
-    }));
+  componentDidMount() {
+    axios.get('https://hire-find.herokuapp.com/api/all', { params: { type: 'iter' } })
+      .then(res => {
+        //  console.log(res);
+        this.setState({
+          iters: res.data.result
+        });
+      })
+
+    axios.get('https://hire-find.herokuapp.com/api/all', { params: { type: 'client' } })
+      .then(res => {
+        // console.log(res);
+        this.setState({
+          clients: res.data.result
+        });
+      })
   }
+
 
   render() {
+    const { iters, clients } = this.state;
     return (
       <>
         <div className="content">
@@ -41,7 +58,6 @@ class Tables extends React.Component {
                 </CardHeader>
                 <CardBody>
                   <div className="table-full-width table-responsive">
-                    <EditProfile/>
                     <Table>
                       <thead className="text-primary">
                         <tr>
@@ -53,322 +69,30 @@ class Tables extends React.Component {
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>
-                          John Lennon
-                          </td>
-                          <td>
-                            Ho Chi Minh city
-                          </td>
-                          <td>
-                            Web developer, software engineering
-                          </td>
-                          <td>4.5</td>
-                          <td className="td-actions text-center">
-                            <Button
-                              color="link"
-                              id="tooltip636901683"
-                              title=""
-                              type="button"  
-                              onClick={this.toggle}                                                                                       
-                            >
-                              <i className="tim-icons icon-pencil" />   
-                              <EditProfile modal={this.state.modal} onClose={this.toggle} title="Edit ITer Profile"/>                                                         
-                            </Button>                           
-                            <UncontrolledTooltip
-                              delay={0}
-                              target="tooltip636901683"
-                              placement="right"
-                            >
-                              Edit Task
-                            </UncontrolledTooltip>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                          John Lennon
-                          </td>
-                          <td>
-                            Ho Chi Minh city
-                          </td>
-                          <td>
-                            Web developer, software engineering
-                          </td>
-                          <td>4.5</td>
-                          <td className="td-actions text-center">
-                            <Button
-                              color="link"
-                              id="tooltip636901683"
-                              title=""
-                              type="button"  
-                              onClick={this.toggle}                                                                                       
-                            >
-                              <i className="tim-icons icon-pencil" />   
-                              <EditProfile modal={this.state.modal} onClose={this.toggle} title="Edit ITer Profile"/>                                                         
-                            </Button>                           
-                            <UncontrolledTooltip
-                              delay={0}
-                              target="tooltip636901683"
-                              placement="right"
-                            >
-                              Edit Task
-                            </UncontrolledTooltip>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                          John Lennon
-                          </td>
-                          <td>
-                            Ho Chi Minh city
-                          </td>
-                          <td>
-                            Web developer, software engineering
-                          </td>
-                          <td>4.5</td>
-                          <td className="td-actions text-center">
-                            <Button
-                              color="link"
-                              id="tooltip636901683"
-                              title=""
-                              type="button"  
-                              onClick={this.toggle}                                                                                       
-                            >
-                              <i className="tim-icons icon-pencil" />   
-                              <EditProfile modal={this.state.modal} onClose={this.toggle} title="Edit ITer Profile"/>                                                         
-                            </Button>                           
-                            <UncontrolledTooltip
-                              delay={0}
-                              target="tooltip636901683"
-                              placement="right"
-                            >
-                              Edit Task
-                            </UncontrolledTooltip>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                          John Lennon
-                          </td>
-                          <td>
-                            Ho Chi Minh city
-                          </td>
-                          <td>
-                            Web developer, software engineering
-                          </td>
-                          <td>4.5</td>
-                          <td className="td-actions text-center">
-                            <Button
-                              color="link"
-                              id="tooltip636901683"
-                              title=""
-                              type="button"  
-                              onClick={this.toggle}                                                                                       
-                            >
-                              <i className="tim-icons icon-pencil" />   
-                              <EditProfile modal={this.state.modal} onClose={this.toggle} title="Edit ITer Profile"/>                                                         
-                            </Button>                           
-                            <UncontrolledTooltip
-                              delay={0}
-                              target="tooltip636901683"
-                              placement="right"
-                            >
-                              Edit Task
-                            </UncontrolledTooltip>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                          John Lennon
-                          </td>
-                          <td>
-                            Ho Chi Minh city
-                          </td>
-                          <td>
-                            Web developer, software engineering
-                          </td>
-                          <td>4.5</td>
-                          <td className="td-actions text-center">
-                            <Button
-                              color="link"
-                              id="tooltip636901683"
-                              title=""
-                              type="button"  
-                              onClick={this.toggle}                                                                                       
-                            >
-                              <i className="tim-icons icon-pencil" />   
-                              <EditProfile modal={this.state.modal} onClose={this.toggle} title="Edit ITer Profile"/>                                                         
-                            </Button>                           
-                            <UncontrolledTooltip
-                              delay={0}
-                              target="tooltip636901683"
-                              placement="right"
-                            >
-                              Edit Task
-                            </UncontrolledTooltip>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                          John Lennon
-                          </td>
-                          <td>
-                            Ho Chi Minh city
-                          </td>
-                          <td>
-                            Web developer, software engineering
-                          </td>
-                          <td>4.5</td>
-                          <td className="td-actions text-center">
-                            <Button
-                              color="link"
-                              id="tooltip636901683"
-                              title=""
-                              type="button"  
-                              onClick={this.toggle}                                                                                       
-                            >
-                              <i className="tim-icons icon-pencil" />   
-                              <EditProfile modal={this.state.modal} onClose={this.toggle} title="Edit ITer Profile"/>                                                         
-                            </Button>                           
-                            <UncontrolledTooltip
-                              delay={0}
-                              target="tooltip636901683"
-                              placement="right"
-                            >
-                              Edit Task
-                            </UncontrolledTooltip>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                          John Lennon
-                          </td>
-                          <td>
-                            Ho Chi Minh city
-                          </td>
-                          <td>
-                            Web developer, software engineering
-                          </td>
-                          <td>4.5</td>
-                          <td className="td-actions text-center">
-                            <Button
-                              color="link"
-                              id="tooltip636901683"
-                              title=""
-                              type="button"  
-                              onClick={this.toggle}                                                                                       
-                            >
-                              <i className="tim-icons icon-pencil" />   
-                              <EditProfile modal={this.state.modal} onClose={this.toggle} title="Edit ITer Profile"/>                                                         
-                            </Button>                           
-                            <UncontrolledTooltip
-                              delay={0}
-                              target="tooltip636901683"
-                              placement="right"
-                            >
-                              Edit Task
-                            </UncontrolledTooltip>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                          John Lennon
-                          </td>
-                          <td>
-                            Ho Chi Minh city
-                          </td>
-                          <td>
-                            Web developer, software engineering
-                          </td>
-                          <td>4.5</td>
-                          <td className="td-actions text-center">
-                            <Button
-                              color="link"
-                              id="tooltip636901683"
-                              title=""
-                              type="button"  
-                              onClick={this.toggle}                                                                                       
-                            >
-                              <i className="tim-icons icon-pencil" />   
-                              <EditProfile modal={this.state.modal} onClose={this.toggle} title="Edit ITer Profile"/>                                                         
-                            </Button>                           
-                            <UncontrolledTooltip
-                              delay={0}
-                              target="tooltip636901683"
-                              placement="right"
-                            >
-                              Edit Task
-                            </UncontrolledTooltip>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                          John Lennon
-                          </td>
-                          <td>
-                            Ho Chi Minh city
-                          </td>
-                          <td>
-                            Web developer, software engineering
-                          </td>
-                          <td>4.5</td>
-                          <td className="td-actions text-center">
-                            <Button
-                              color="link"
-                              id="tooltip636901683"
-                              title=""
-                              type="button"  
-                              onClick={this.toggle}                                                                                       
-                            >
-                              <i className="tim-icons icon-pencil" />   
-                              <EditProfile modal={this.state.modal} onClose={this.toggle} title="Edit ITer Profile"/>                                                         
-                            </Button>                           
-                            <UncontrolledTooltip
-                              delay={0}
-                              target="tooltip636901683"
-                              placement="right"
-                            >
-                              Edit Task
-                            </UncontrolledTooltip>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                          John Lennon
-                          </td>
-                          <td>
-                            Ho Chi Minh city
-                          </td>
-                          <td>
-                            Web developer, software engineering
-                          </td>
-                          <td>4.5</td>
-                          <td className="td-actions text-center">
-                            <Button
-                              color="link"
-                              id="tooltip636901683"
-                              title=""
-                              type="button"  
-                              onClick={this.toggle}                                                                                       
-                            >
-                              <i className="tim-icons icon-pencil" />   
-                              <EditProfile modal={this.state.modal} onClose={this.toggle} title="Edit ITer Profile"/>                                                         
-                            </Button>                           
-                            <UncontrolledTooltip
-                              delay={0}
-                              target="tooltip636901683"
-                              placement="right"
-                            >
-                              Edit Task
-                            </UncontrolledTooltip>
-                          </td>
-                        </tr>
+                        {iters.map((iter, index) => (
+                          <tr key={iter._id}>
+                            <td>
+                              {iter.displayName}
+                            </td>
+                            <td>
+                              {iter.location.address}
+                            </td>
+                            <td>
+                              {iter.service}
+                            </td>
+                            <td>{iter.totalRatings}</td>
+                            <td className="td-actions text-center">
+                              <EditProfile Data={iter} title="Edit ITer Profile" />
+                            </td>
+                          </tr>
+                        ))
+                        }
                       </tbody>
                     </Table>
                   </div>
                 </CardBody>
               </Card>
-            </Col>         
+            </Col>
             <Col md="12">
               <Card className="card-tasks">
                 <CardHeader>
@@ -386,249 +110,21 @@ class Tables extends React.Component {
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>Dakota Rice</td>
-                          <td>Niger</td>
-                          <td className="text-center">5</td>
-                          <td className="td-actions text-center">
-                              <Button
-                                color="link"
-                                id="tooltip636901683"
-                                title=""
-                                type="button"
-                                onClick={this.toggle}
-                              >
-                                <i className="tim-icons icon-pencil" />  
-                                <EditProfile modal={this.state.modal} onClose={this.toggle} title="Edit Client Profile"/>                              
-                              </Button>
-                              <UncontrolledTooltip
-                                delay={0}
-                                target="tooltip636901683"
-                                placement="right"
-                              >
-                                Edit Task
-                              </UncontrolledTooltip>                              
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Minerva Hooper</td>
-                          <td>Curaçao</td>
-                          <td className="text-center">5</td>
-                          <td className="td-actions text-center">
-                              <Button
-                                color="link"
-                                id="tooltip636901683"
-                                title=""
-                                type="button"
-                                onClick={this.toggle}
-                              >
-                                <i className="tim-icons icon-pencil" />  
-                                <EditProfile modal={this.state.modal} onClose={this.toggle} title="Edit Client Profile"/>                              
-                              </Button>
-                              <UncontrolledTooltip
-                                delay={0}
-                                target="tooltip636901683"
-                                placement="right"
-                              >
-                                Edit Task
-                              </UncontrolledTooltip>                              
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Sage Rodriguez</td>
-                          <td>Netherlands</td>
-                          <td className="text-center">5</td>
-                          <td className="td-actions text-center">
-                              <Button
-                                color="link"
-                                id="tooltip636901683"
-                                title=""
-                                type="button"
-                                onClick={this.toggle}
-                              >
-                                <i className="tim-icons icon-pencil" />  
-                                <EditProfile modal={this.state.modal} onClose={this.toggle} title="Edit Client Profile"/>                              
-                              </Button>
-                              <UncontrolledTooltip
-                                delay={0}
-                                target="tooltip636901683"
-                                placement="right"
-                              >
-                                Edit Task
-                              </UncontrolledTooltip>                              
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Philip Chaney</td>
-                          <td>Korea, South</td>
-                          <td className="text-center">5</td>
-                          <td className="td-actions text-center">
-                              <Button
-                                color="link"
-                                id="tooltip636901683"
-                                title=""
-                                type="button"
-                                onClick={this.toggle}
-                              >
-                                <i className="tim-icons icon-pencil" />  
-                                <EditProfile modal={this.state.modal} onClose={this.toggle} title="Edit Client Profile"/>                              
-                              </Button>
-                              <UncontrolledTooltip
-                                delay={0}
-                                target="tooltip636901683"
-                                placement="right"
-                              >
-                                Edit Task
-                              </UncontrolledTooltip>                              
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Doris Greene</td>
-                          <td>Malawi</td>
-                          <td className="text-center">5</td>
-                          <td className="td-actions text-center">
-                              <Button
-                                color="link"
-                                id="tooltip636901683"
-                                title=""
-                                type="button"
-                                onClick={this.toggle}
-                              >
-                                <i className="tim-icons icon-pencil" />  
-                                <EditProfile modal={this.state.modal} onClose={this.toggle} title="Edit Client Profile"/>                              
-                              </Button>
-                              <UncontrolledTooltip
-                                delay={0}
-                                target="tooltip636901683"
-                                placement="right"
-                              >
-                                Edit Task
-                              </UncontrolledTooltip>                              
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Mason Porter</td>
-                          <td>Chile</td>
-                          <td className="text-center">5</td>
-                          <td className="td-actions text-center">
-                              <Button
-                                color="link"
-                                id="tooltip636901683"
-                                title=""
-                                type="button"
-                                onClick={this.toggle}
-                              >
-                                <i className="tim-icons icon-pencil" />  
-                                <EditProfile modal={this.state.modal} onClose={this.toggle} title="Edit Client Profile"/>                              
-                              </Button>
-                              <UncontrolledTooltip
-                                delay={0}
-                                target="tooltip636901683"
-                                placement="right"
-                              >
-                                Edit Task
-                              </UncontrolledTooltip>                              
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Jon Porter</td>
-                          <td>Portugal</td>
-                          <td className="text-center">5</td>
-                          <td className="td-actions text-center">
-                              <Button
-                                color="link"
-                                id="tooltip636901683"
-                                title=""
-                                type="button"
-                                onClick={this.toggle}
-                              >
-                                <i className="tim-icons icon-pencil" />  
-                                <EditProfile modal={this.state.modal} onClose={this.toggle} title="Edit Client Profile"/>                              
-                              </Button>
-                              <UncontrolledTooltip
-                                delay={0}
-                                target="tooltip636901683"
-                                placement="right"
-                              >
-                                Edit Task
-                              </UncontrolledTooltip>                              
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Jon Porter</td>
-                          <td>Portugal</td>
-                          <td className="text-center">5</td>
-                          <td className="td-actions text-center">
-                              <Button
-                                color="link"
-                                id="tooltip636901683"
-                                title=""
-                                type="button"
-                                onClick={this.toggle}
-                              >
-                                <i className="tim-icons icon-pencil" />  
-                                <EditProfile modal={this.state.modal} onClose={this.toggle} title="Edit Client Profile"/>                              
-                              </Button>
-                              <UncontrolledTooltip
-                                delay={0}
-                                target="tooltip636901683"
-                                placement="right"
-                              >
-                                Edit Task
-                              </UncontrolledTooltip>                              
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Jon Porter</td>
-                          <td>Portugal</td>
-                          <td className="text-center">5</td>
-                          <td className="td-actions text-center">
-                              <Button
-                                color="link"
-                                id="tooltip636901683"
-                                title=""
-                                type="button"
-                                onClick={this.toggle}
-                              >
-                                <i className="tim-icons icon-pencil" />  
-                                <EditProfile modal={this.state.modal} onClose={this.toggle} title="Edit Client Profile"/>                              
-                              </Button>
-                              <UncontrolledTooltip
-                                delay={0}
-                                target="tooltip636901683"
-                                placement="right"
-                              >
-                                Edit Task
-                              </UncontrolledTooltip>                              
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Jon Porter</td>
-                          <td>Portugal</td>
-                          <td className="text-center">5</td>
-                          <td className="td-actions text-center">
-                              <Button
-                                color="link"
-                                id="tooltip636901683"
-                                title=""
-                                type="button"
-                                onClick={this.toggle}
-                              >
-                                <i className="tim-icons icon-pencil" />  
-                                <EditProfile modal={this.state.modal} onClose={this.toggle} title="Edit Client Profile"/>                              
-                              </Button>
-                              <UncontrolledTooltip
-                                delay={0}
-                                target="tooltip636901683"
-                                placement="right"
-                              >
-                                Edit Task
-                              </UncontrolledTooltip>                              
-                          </td>
-                        </tr>
+                        {
+                          clients.map(client => (
+                            <tr>
+                              <td>{client.displayName}</td>
+                              <td>{client.address}</td>
+                              <td className="text-center">{client.totalRatings}</td>
+                              <td className="td-actions text-center">
+                                <EditProfile Data={client} title="Edit ITer Profile" />
+                              </td>
+                            </tr>
+                          ))
+                        }
                       </tbody>
                     </Table>
-                  </div> 
+                  </div>
                 </CardBody>
               </Card>
             </Col>

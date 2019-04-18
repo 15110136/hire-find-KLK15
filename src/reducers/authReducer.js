@@ -1,5 +1,5 @@
 const initState = {
-	isAuthenticated: false,
+	isAuthenticated: true,
 	user: {}
 };
 
@@ -15,9 +15,10 @@ const isEmpty = (value) => {
 const authReducer = (state = initState, action) => {
 	switch (action.type) {
 		case 'SET_CURRENT_USER':
+			console.log('log in success!');
 			return {
 				...state,
-			//	isAuthenticated: !isEmpty(action.payload),
+			  isAuthenticated: !isEmpty(action.payload),
 				user: action.payload
 			}
 		case 'LOGIN_FAILUREE':

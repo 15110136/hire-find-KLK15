@@ -1,8 +1,9 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 // javascript plugin used to create scrollbars on windows
-import PerfectScrollbar from "perfect-scrollbar";
-
+// import PerfectScrollbar from "perfect-scrollbar";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 // core components
 import AdminNavbar from "components/Navbars/AdminNavbar.jsx";
 import Footer from "components/Footer/Footer.jsx";
@@ -13,7 +14,7 @@ import routes from "routes.js";
 
 import logo from "assets/img/react-logo.png";
 
-var ps;
+// var ps;
 
 class Admin extends React.Component {
   constructor(props) {
@@ -28,16 +29,16 @@ class Admin extends React.Component {
     if (navigator.platform.indexOf("Win") > -1) {
       document.documentElement.className += " perfect-scrollbar-on";
       document.documentElement.classList.remove("perfect-scrollbar-off");
-      ps = new PerfectScrollbar(this.refs.mainPanel, { suppressScrollX: true });
-      let tables = document.querySelectorAll(".table-responsive");
-      for (let i = 0; i < tables.length; i++) {
-        ps = new PerfectScrollbar(tables[i]);
-      }
+      //ps = new PerfectScrollbar(this.refs.mainPanel, { suppressScrollX: true });
+      // let tables = document.querySelectorAll(".table-responsive");
+      // for (let i = 0; i < tables.length; i++) {
+      //   ps = new PerfectScrollbar(tables[i]);
+      // }
     }
   }
   componentWillUnmount() {
     if (navigator.platform.indexOf("Win") > -1) {
-      ps.destroy();
+     // ps.destroy();
       document.documentElement.className += " perfect-scrollbar-off";
       document.documentElement.classList.remove("perfect-scrollbar-on");
     }
@@ -45,10 +46,10 @@ class Admin extends React.Component {
   componentDidUpdate(e) {
     if (e.history.action === "PUSH") {
       if (navigator.platform.indexOf("Win") > -1) {
-        let tables = document.querySelectorAll(".table-responsive");
-        for (let i = 0; i < tables.length; i++) {
-          ps = new PerfectScrollbar(tables[i]);
-        }
+        // let tables = document.querySelectorAll(".table-responsive");
+        // for (let i = 0; i < tables.length; i++) {
+        //   ps = new PerfectScrollbar(tables[i]);
+        // }
       }
       document.documentElement.scrollTop = 0;
       document.scrollingElement.scrollTop = 0;
@@ -91,6 +92,8 @@ class Admin extends React.Component {
     return "Brand";
   };
   render() {
+    var { auth } = this.props;
+    if (!auth.isAuthenticated) return <Redirect to="/signin" />;
     return (
       <>
         <div className="wrapper">
@@ -118,9 +121,9 @@ class Admin extends React.Component {
             />
             <Switch>{this.getRoutes(routes)}</Switch>
             {// we don't want the Footer to be rendered on map page
-            this.props.location.pathname.indexOf("maps") !== -1 ? null : (
-              <Footer fluid />
-            )}
+              this.props.location.pathname.indexOf("maps") !== -1 ? null : (
+                <Footer fluid />
+              )}
           </div>
         </div>
         <FixedPlugin
@@ -132,4 +135,10 @@ class Admin extends React.Component {
   }
 }
 
-export default Admin;
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  };
+};
+
+export default connect(mapStateToProps)(Admin);

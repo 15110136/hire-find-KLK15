@@ -33,7 +33,7 @@ class UserProfile extends React.Component {
                         <FormGroup>
                           <label>Company (disabled)</label>
                           <Input
-                            defaultValue="Creative Code Inc."
+                            defaultValue="Hire-Find Corporation"
                             disabled
                             placeholder="Company"
                             type="text"
@@ -55,7 +55,7 @@ class UserProfile extends React.Component {
                           <label htmlFor="exampleInputEmail1">
                             Email address
                           </label>
-                          <Input placeholder="leonhan88@gmail.com" type="email" />
+                          <Input defaultValue="leonhan88@gmail.com"  type="email" />
                         </FormGroup>
                       </Col>
                     </Row>
@@ -86,7 +86,7 @@ class UserProfile extends React.Component {
                         <FormGroup>
                           <label>Address</label>
                           <Input
-                            defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
+                            defaultValue="Ho Chi Minh City, 9 dict"
                             placeholder="Home Address"
                             type="text"
                           />
@@ -113,13 +113,7 @@ class UserProfile extends React.Component {
                             type="text"
                           />
                         </FormGroup>
-                      </Col>
-                      <Col className="pl-md-1" md="4">
-                        <FormGroup>
-                          <label>Postal Code</label>
-                          <Input placeholder="ZIP Code" type="number" />
-                        </FormGroup>
-                      </Col>
+                      </Col>                      
                     </Row>
                     <Row>
                       <Col md="8">
@@ -172,7 +166,7 @@ class UserProfile extends React.Component {
                 </CardBody>
                 <CardFooter>
                   <div className="button-container">
-                    <Button className="btn-icon btn-round" color="facebook">
+                    <Button className="btn-icon btn-round" color="facebook" href="https://www.facebook.com/nnhanphat" >
                       <i className="fab fa-facebook" />
                     </Button>
                     <Button className="btn-icon btn-round" color="twitter">
