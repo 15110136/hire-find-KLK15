@@ -10,10 +10,10 @@ class ProfileIter extends React.Component{
   onRegister = async () => {
     let credentials = this.props.credentials;
     await this.props.registerITer(credentials);
+    let { error } = this.props;
 
-    this.props.error ? console.log(this.props.error) :
+    error ? alert(error) :
       this.props.props.history.push('/')
-      debugger
   }
 
   render(){
