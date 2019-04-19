@@ -24,12 +24,12 @@ class Register extends Component {
       email: email,
       password: password
     };
-    if(!true){
-      alert("Vui lòng kiểm tra lại !")
-    }
-    // if(password.length === 0 || email.length === 0 || password !== confirmPassword){
+    // if(!true){
     //   alert("Vui lòng kiểm tra lại !")
     // }
+    if(password.length === 0 || email.length === 0 || password !== confirmPassword){
+      alert("Vui lòng kiểm tra lại !")
+    }
     else{
     this.props.registerInfo(credentials);
     this.props.props.history.push('/register')

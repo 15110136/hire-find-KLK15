@@ -5,19 +5,19 @@ const API_ROOT = 'https://hire-find.herokuapp.com/api/iter';
 export const registerITer = credentials => dispatch => {
   axios
       .post(`${API_ROOT}/register`, credentials)
-      .then(() => {
+      .then(({ data }) => {
         dispatch({
           type: 'REGISTER',
           payload: credentials
         })
       })
-      .catch( ({ data: { err } }) => {
+      .catch( ({ err }) => {
         console.log(err);
         
-        dispatch({
-          type: 'REGISTER_ERROR',
-          payload: err
-        })
+        // dispatch({
+        //   type: 'REGISTER_ERROR',
+        //   payload: err
+        // })
       });
 }
 

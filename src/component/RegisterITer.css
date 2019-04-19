@@ -14,8 +14,10 @@
 }
 
 .title {
-    position: relative;
-    left: 30%;
-    margin-top: 3rem;
-    font-size: 4em;
+    font-size: 3em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: blueviolet;
 }

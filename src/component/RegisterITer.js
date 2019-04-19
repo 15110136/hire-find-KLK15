@@ -11,8 +11,8 @@ class RegisterITer extends Component {
     this.state = {
       activeZone: "",
       name: "",
-      phone: 0,
-      exp: 0,
+      phone: null,
+      exp: null,
       typeJob: "",
       address: "",
       service: [],
@@ -172,7 +172,6 @@ class RegisterITer extends Component {
         );
 
       case "3":
-				this.changeValue('software', true)
         return (
           <div>
             <FormGroup>

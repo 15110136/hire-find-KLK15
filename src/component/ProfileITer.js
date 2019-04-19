@@ -7,14 +7,12 @@ import './ProfileITer.css';
 class ProfileIter extends React.Component{
 
   goBack = () => this.props.props.history.goBack();
+  
   onRegister = async () => {
     let credentials = this.props.credentials;
     await this.props.registerITer(credentials);
 
-    this.props.error ? console.log(this.props.error) :
-      this.props.props.history.push('/')
-      debugger
-  }
+    }
 
   render(){
     const { credentials } = this.props;
