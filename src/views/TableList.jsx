@@ -46,7 +46,7 @@ class Tables extends React.Component {
 
 
   render() {
-    const { iters, clients } = this.state;
+    const { iters, clients } = this.state;   
     return (
       <>
         <div className="content">
@@ -82,7 +82,7 @@ class Tables extends React.Component {
                             </td>
                             <td>{iter.totalRatings}</td>
                             <td className="td-actions text-center">
-                              <EditProfile Data={iter} title="Edit ITer Profile" />
+                              <EditProfile Data={iter} titlfe="Edit ITer Profile" />
                             </td>
                           </tr>
                         ))

@@ -166,8 +166,8 @@ class UserProfile extends React.Component {
                 </CardBody>
                 <CardFooter>
                   <div className="button-container">
-                    <Button className="btn-icon btn-round" color="facebook" href="https://www.facebook.com/nnhanphat" >
-                      <i className="fab fa-facebook" />
+                    <Button href="https://www.facebook.com/nnhanphat" className="btn-icon btn-round" color="facebook" >
+                      <i className="fab fa-facebook"/> 
                     </Button>
                     <Button className="btn-icon btn-round" color="twitter">
                       <i className="fab fa-twitter" />

@@ -13,7 +13,7 @@ import SignIn from "./components/SignIn/SignIn";
 //import RTLLayout from "layouts/RTL/RTL.jsx";
 
 import "assets/scss/black-dashboard-react.scss";
-import "assets/demo/demo.css";
+//import "assets/demo/demo.css";
 import "assets/css/nucleo-icons.css";
 import "tilt.js";
 import "./components/SignIn/styles.js"

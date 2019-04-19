@@ -44,24 +44,33 @@ class EditProfile extends React.Component {
           <ModalHeader toggle={this.toggle}>{this.props.title}</ModalHeader>
           <ModalBody>
             <Form > 
+              {/* <Row>
+                <Col>
+                  <div className="author">
+                      <div className="block block-one" />
+                      <div className="block block-two" />
+                      <div className="block block-three" />
+                      <div className="block block-four" />
+                      <a href="#pablo" onClick={e => e.preventDefault()}>
+                        <img
+                          alt="..."
+                          className="avatar"
+                          src={require("assets/img/Nhan_Nguyen.jpg")}
+                        />
+                      </a>
+                  </div>
+                </Col>                
+              </Row> */}
               <Row>
-                <Col className="pr-md-1" md="8">
+                <Col className="pr-md-1" md="12">
                   <FormGroup>
-                    <label>User name</label>
+                    <label>Email</label>
                     <Input
                       placeholder={email}
                       type="text"
                     />
                   </FormGroup>
-                </Col>
-                <Col className="pl-md-1" md="4">
-                  <FormGroup>
-                    <label htmlFor="exampleInputEmail1">
-                      Email address
-                          </label>
-                    <Input placeholder={email} type="email" />
-                  </FormGroup>
-                </Col>
+                </Col>             
               </Row>
               <Row>
                 <Col className="pr-md-1" md="6">
