@@ -3,26 +3,25 @@ import axios from 'axios';
 const API_ROOT = 'https://hire-find.herokuapp.com/api/iter';
 
 export const registerITer = credentials => dispatch => {
-  console.log(credentials);
   axios
-      .post("https://hire-find.herokuapp.com/api/iter/register", credentials)
+      .post(`${API_ROOT}/register`, credentials)
       .then(() => {
-        console.log(1)
         dispatch({
           type: 'REGISTER',
           payload: credentials
         })
       })
-      .catch((error) => {
+      .catch( ({ data: { err } }) => {
+        console.log(err);
+        
         dispatch({
           type: 'REGISTER_ERROR',
-          payload: error
+          payload: err
         })
       });
 }
 
-export const registerEmailPassword = credentials => dispatch => {
-  console.log(credentials);
+export const registerInfo = credentials => dispatch => {
   dispatch({
     type: 'REGISTER',
     payload: credentials

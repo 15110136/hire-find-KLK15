@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { Form, FormGroup, Label, Input, Container } from "reactstrap";
 import { connect } from 'react-redux'
-import { registerEmailPassword } from '../actions/registerAction'
-import axios from "axios";
+import { registerInfo } from '../actions/registerAction'
 import "../component/Register.css";
 class Register extends Component {
   constructor(props) {
@@ -25,54 +24,59 @@ class Register extends Component {
       email: email,
       password: password
     };
-    if(password !== confirmPassword){
-      alert("Vui lòng nhập lại mật khẩu!")
+    if(!true){
+      alert("Vui lòng kiểm tra lại !")
     }
+    // if(password.length === 0 || email.length === 0 || password !== confirmPassword){
+    //   alert("Vui lòng kiểm tra lại !")
+    // }
     else{
-    this.props.registerEmailPassword(credentials);
+    this.props.registerInfo(credentials);
     this.props.props.history.push('/register')
   }
   };
   render() {
-    console.log(this.props.register)
     return (
-      <Form className="Form1" onSubmit={this.handleSubmit}>
-        <FormGroup>
-          <Label>Email</Label>
+      <Container>
+        <Label className="title">Đăng ký tài khoản ITer</Label>
+        <Form className="Form1" onSubmit={this.handleSubmit}>
+          <FormGroup>
+            <Label>Email</Label>
+            <Input
+              type="email"
+              name="email"
+              id="email"
+              value={this.state.email}
+              onChange={this.handleChange}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label>Mật Khẩu</Label>
+            <Input
+              type="password"
+              name="password"
+              id="password"
+              value={this.state.password}
+              onChange={this.handleChange}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label>Nhập lại mật khẩu</Label>
+            <Input
+              type="password"
+              name="confirmPassword"
+              id="confirmPassword"
+              value={this.state.confirmPassword}
+              onChange={this.handleChange}
+            />
+          </FormGroup>
           <Input
-            type="email"
-            name="email"
-            id="email"
-            value={this.state.email}
-            onChange={this.handleChange}
+            style={{ backgroundColor: "blue", color: "white" }}
+            type="submit"
+            value="Đăng Kí"
           />
-        </FormGroup>
-        <FormGroup>
-          <Label>Mật Khẩu</Label>
-          <Input
-            type="password"
-            name="password"
-            id="password"
-            value={this.state.password}
-            onChange={this.handleChange}
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label>Nhập lại mật khẩu</Label>
-          <Input
-            type="password"
-            name="confirmPassword"
-            id="confirmPassword"
-            value={this.state.confirmPassword}
-            onChange={this.handleChange}
-          />
-        </FormGroup>
-        <Input
-          style={{ backgroundColor: "blue", color: "white" }}
-          type="submit"
-          value="Đăng Kí"
-        />
-      </Form>
+        </Form>
+      </Container>
     );
   }
 }
@@ -85,7 +89,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    registerEmailPassword: (credentials) => dispatch(registerEmailPassword(credentials))
+    registerInfo: (credentials) => dispatch(registerInfo(credentials))
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Register);

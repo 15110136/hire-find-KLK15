@@ -12,3 +12,10 @@
     background-attachment: fixed;
     background-size: 48%;
 }
+
+.title {
+    position: relative;
+    left: 30%;
+    margin-top: 3rem;
+    font-size: 4em;
+}

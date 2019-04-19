@@ -1,11 +1,23 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import { Form, Label, FormGroup, Input, Button} from 'reactstrap';
+import { registerITer } from "../actions/registerAction";
 import './ProfileITer.css';
-import {Link} from "react-router-dom";
+
 class ProfileIter extends React.Component{
+
+  goBack = () => this.props.props.history.goBack();
+  onRegister = async () => {
+    let credentials = this.props.credentials;
+    await this.props.registerITer(credentials);
+
+    this.props.error ? console.log(this.props.error) :
+      this.props.props.history.push('/')
+      debugger
+  }
+
   render(){
-    const { register: { credentials } } = this.props;
+    const { credentials } = this.props;
     return( 
       <div>
       <Form className ="formProfile" >
@@ -38,8 +50,8 @@ class ProfileIter extends React.Component{
           <Label className = "output">{credentials.exp}</Label>
         </FormGroup>
         <FormGroup className = "btn">
-        <Button color = "warning" tag={Link} to ="/register" className = "btnBack">Sửa Đổi</Button>
-        <Button color = "success" tag={Link} to ="/" className = "btnSubmit">Xác Nhận</Button>
+        <Button color = "warning" onClick={this.goBack} className = "btnBack">Sửa Đổi</Button>
+        <Button color = "success" onClick={ this.onRegister }  className = "btnSubmit">Xác Nhận</Button>
         </FormGroup>
       </Form>
       </div>
@@ -48,12 +60,14 @@ class ProfileIter extends React.Component{
 }
 const mapStateToProps = state => {
   return {
-    register: state.register
+    credentials: state.register.credentials,
+    error: state.register.error
   }
 }
-// const MapDispatchtoProps = dispatch =>{
-//   return {
-//     registerITer: (credentials) => dispatch(registerITer(credentials))
-//   }
-// }
-export default connect(mapStateToProps)(ProfileIter);
+
+const mapDispatchToProps = dispatch => {
+  return {
+    registerITer: (credentials) => dispatch(registerITer(credentials))
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileIter);

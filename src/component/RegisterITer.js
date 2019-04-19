@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { Button, Form, FormGroup, Label, Input, CustomInput } from "reactstrap";
+import { Form, FormGroup, Label, Input, CustomInput } from "reactstrap";
+import { registerInfo } from '../actions/registerAction'
 import { connect } from 'react-redux'
-import { registerITer } from "../actions/registerAction";
-import { withRouter } from "react-router-dom";
-import axios from "axios";
+
 import "./RegisterITer.css";
 
 class RegisterITer extends Component {
@@ -17,6 +16,8 @@ class RegisterITer extends Component {
       typeJob: "",
       address: "",
       service: [],
+      hardware: false,
+      software: false,
       iter: {}
     };
   }
@@ -33,35 +34,23 @@ class RegisterITer extends Component {
     this.setState({
       service: arr
     });
-  };
+	};
+	
 
-  handleSubmit = async event => {
+  handleSubmit = event => {
     event.preventDefault();
     let { name, activeZone, phone, address, exp, service } = this.state;
-
-    let newCre = {...this.props.register.credentials, name: name,
+    let newCre = {...this.props.credentials, 
+      name: name,
       activeZone: activeZone,
       phone: phone,
       address: address,
       exp: exp,
       service: service}
+    this.props.registerInfo(newCre);
 
-    this.props.registerITer(newCre);
+
     this.props.props.history.push('/profile')
-
-    // this.props.registerITer(newCre)
-    // await axios
-    //   .post("https://hire-find.herokuapp.com/api/iter/register", credentials)
-    //   .then(res => {
-    //     // this.setState({
-    //     //   iter: data.iter
-    //     // });
-    //     console.log(res);
-    //     this.props.history.push("/");
-    //   })
-    //   .catch(function(error) {
-    //     console.log(error);
-    //   });
   };
 
   _renderInput() {
@@ -183,6 +172,7 @@ class RegisterITer extends Component {
         );
 
       case "3":
+				this.changeValue('software', true)
         return (
           <div>
             <FormGroup>
@@ -244,19 +234,18 @@ class RegisterITer extends Component {
   }
 
   render() {
-  // const { register: { credentials } } = this.props;
+    const { credentials } =this.props;
     return (
       <div className="background">
         <Form className="Form" onSubmit={this.handleSubmit}>
           <FormGroup>
             <Label>Khu Vực Đăng Kí</Label>
-            {/* <Label>{credentials.typeJob}</Label> */}
             <Input
               type="select"
               name="activeZone"
               id="select"
-              value={this.state.activeZone}
-              onChange={this.handleChange}
+              value={ credentials && credentials.activeZone ? credentials.activeZone : this.state.activeZone }
+              onChange={ this.handleChange }
             >
               <option>Chọn khu vực làm việc</option>
               <option>Tp. Hồ Chí Minh</option>
@@ -272,7 +261,7 @@ class RegisterITer extends Component {
               type="name"
               name="name"
               id="name"
-              value={this.state.name}
+              value={ credentials && credentials.name ? credentials.name : this.state.name }
               onChange={this.handleChange}
             />
           </FormGroup>
@@ -282,7 +271,7 @@ class RegisterITer extends Component {
               type="string"
               name="address"
               id="address"
-              value={this.state.address}
+              value={ credentials && credentials.address ? credentials.address : this.state.address }
               onChange={this.handleChange}
             />
           </FormGroup>
@@ -292,7 +281,7 @@ class RegisterITer extends Component {
               type="number"
               name="phone"
               id="phone"
-              value={this.state.phone}
+              value={ credentials && credentials.phone ? credentials.phone : this.state.phone }
               onChange={this.handleChange}
             />
           </FormGroup>
@@ -302,7 +291,7 @@ class RegisterITer extends Component {
               type="select"
               name="typeJob"
               id="typeJob"
-              value={this.state.typeJob}
+              value={ credentials && credentials.typeJob ? credentials.typeJob : this.state.typeJob }
               onChange={this.handleChange}
             >
               <option>Chọn loại công việc</option>
@@ -326,14 +315,12 @@ class RegisterITer extends Component {
 
 const mapStateToProps = state => {
   return {
-    register: state.register
+    credentials: state.register.credentials
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    registerITer: (credentials) => dispatch(registerITer(credentials))
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  registerInfo: (credentials) => dispatch(registerInfo(credentials))
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegisterITer);
