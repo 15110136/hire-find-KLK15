@@ -1,6 +1,6 @@
 const initState = {
   credentials: {},
-  error: {}
+  error: ''
 };
 
 const registerReducer = (state = initState, { type, payload }) => {
